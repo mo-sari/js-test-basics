@@ -1,5 +1,5 @@
-import { describe, test, it, expect} from 'vitest'
-import {getCoupons, calculateDiscount} from '../src/core';
+import { describe, test, it, expect, isFirstRun} from 'vitest'
+import {getCoupons, calculateDiscount, isPriceInRange} from '../src/core';
 
 describe('Core.getCoupons', () => {
     it('should not be empty', () => {
@@ -36,5 +36,19 @@ describe('Core.calculateDiscount', () => {
     });
     it('should work regularly if wrong discount value passed', () => {
         expect(calculateDiscount(10, 'Not Valid')).toBe(10);
+    })
+})
+
+describe('Core.isPriceInRange', () => {
+    it('shoulk return true if price between min and max', () => {
+        expect(isPriceInRange(50, 0, 100)).toBe(true);
+    });
+    it('should return false if price less than min or more than max', () => {
+        expect(isPriceInRange(-10, 0, 100)).toBe(false);
+        expect(isPriceInRange(200, 0, 100)).toBe(false);
+    })
+    it('should return true if price is on the edge', () => {
+        expect(isPriceInRange(100, 0, 100)).toBe(true);
+        expect(isPriceInRange(0, 0, 100)).toBe(true);
     })
 })
