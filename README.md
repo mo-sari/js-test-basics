@@ -17,4 +17,7 @@ This repository contains all of the examples and exercises for my JavaScript tes
 You can find the full course at: 
 
 https://codewithmosh.com
- 
+
+======================================================
+we wrote the test so we could easily refactor our code 
+and the test is still passing
