@@ -1,5 +1,5 @@
 import { describe, it, expect} from 'vitest'
-import {getCoupons, calculateDiscount, isPriceInRange, canDrive} from '../src/core';
+import {getCoupons, calculateDiscount, isPriceInRange, canDrive, fetchData} from '../src/core';
 
 
 describe('Core.getCoupons', () => {
@@ -94,5 +94,28 @@ describe('Core.isPriceInRange.Parameterizing', () => {
         {scenario: 'price > max', price: 200, result: false},
     ])('should return $result if $scenario', ({ price, result})=>{
         expect(isPriceInRange(price, 0, 100)).toBe(result);
+    })
+})
+
+describe('fetchData', () => {
+    it('should return a promise the will resolve an array of numbers', () => {
+        fetchData().then((res)=>{
+            expect(Array.isArray(res)).toBe(true);
+            expect(res.length).toBeGreaterThan(0);
+        }).catch((err)=>{
+            expect(err).toHaveProperty('reason');
+            expect(err.reason).toMatch(/fail/i)
+        })
+    })
+    it('should return a promise the will resolve an array of numbers',async () => {
+        try{
+            const response = await fetchData();
+            expect(Array.isArray(response)).toBe(true);
+            expect(response.length).toBeGreaterThan(0);
+        }
+        catch(err){
+            expect(err).toHaveProperty('reason');
+            expect(err.reason).toMatch(/fail/i);
+        }
     })
 })
