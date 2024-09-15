@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeAll, beforeEach, afterEach, afterAll} from 'vitest'
 import {getCoupons, calculateDiscount, isPriceInRange, canDrive, fetchData} from '../src/core';
+import { Stack } from '../src/core';
 
 
 describe('Core.getCoupons', () => {
