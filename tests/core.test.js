@@ -1,5 +1,6 @@
-import { describe, test, it, expect, isFirstRun} from 'vitest'
-import {getCoupons, calculateDiscount, isPriceInRange} from '../src/core';
+import { describe, it, expect} from 'vitest'
+import {getCoupons, calculateDiscount, isPriceInRange, canDrive} from '../src/core';
+
 
 describe('Core.getCoupons', () => {
     it('should not be empty', () => {
@@ -50,5 +51,23 @@ describe('Core.isPriceInRange', () => {
     it('should return true if price is on the edge', () => {
         expect(isPriceInRange(100, 0, 100)).toBe(true);
         expect(isPriceInRange(0, 0, 100)).toBe(true);
+    })
+})
+
+describe('Core.canDrive', () => {
+    it('remember all these epxectations are supposed to be in different d"s', () => {
+        expect(canDrive(15, 'IR')).toMatch(/invalid/i);
+
+        // right on the edge
+        expect(canDrive(16, 'US')).toBeTruthy();
+        expect(canDrive(17, 'UK')).toBeTruthy();
+
+        // under the limit
+        expect(canDrive(15, 'US')).toBeFalsy();
+        expect(canDrive(16, 'UK')).toBeFalsy();
+
+        // above the limit
+        expect(canDrive(17, 'US')).toBeTruthy();
+        expect(canDrive(18, 'UK')).toBeTruthy();
     })
 })
