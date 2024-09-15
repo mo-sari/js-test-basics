@@ -71,6 +71,7 @@ describe('Core.canDrive', () => {
         expect(canDrive(18, 'UK')).toBeTruthy();
     })
 })
+
 describe('Core.canDrive', () => {
     it.each([
         {age: 15, country: 'US', result: false},
@@ -83,15 +84,15 @@ describe('Core.canDrive', () => {
         expect(canDrive(age, country)).toBe(result);
     });
 })
+
 describe('Core.isPriceInRange.Parameterizing', () => {
     it.each([
-        {price: 50, min: 0, max: 100, result: true},
-        {price: -10, min: 0, max: 100, result: false},
-        {price: 200, min: 0, max: 100, result: false},
-        {price: 100, min: 0, max: 100, result: true},
-        {price: 0, min: 0, max: 100, result: true},
-    ])('should return true if price is between min and max', ({min, max, price, result})=>{
-        expect(isPriceInRange(price, min, max, result)).toBe(result);
+        {scenario: 'price < min',price: -10, result: false},
+        {scenario: 'price = min', price: 0, result: true},
+        {scenario: 'price between min and max',price: 50, result: true},
+        {scenario: 'price = max', price: 100, result: true},
+        {scenario: 'price > max', price: 200, result: false},
+    ])('should return $result if $scenario', ({ price, result})=>{
+        expect(isPriceInRange(price, 0, 100)).toBe(result);
     })
-    
 })
